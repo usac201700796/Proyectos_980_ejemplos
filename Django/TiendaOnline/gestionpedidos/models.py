@@ -9,11 +9,19 @@ from django.db import models
    from gestionpedidos.models import Articulos
    Clientes(nombre='', ....)
 """
+
+class usuarios(models.Model):
+    contraseña = models.CharField(max_length=8)
+
 class Clientes(models.Model):
     nombre = models.CharField(max_length=30)
     direccion = models.CharField(max_length=50)
-    correo = models.EmailField()
+    correo = models.EmailField(blank=True, null=True)
     telefono = models.CharField(max_length=7)
+
+    def __str__(self):
+        return self.nombre
+    
 
 class Articulos(models.Model):
     nombre = models.CharField(max_length=30)
@@ -31,7 +39,7 @@ class Articulos(models.Model):
         Articulos.objects.filter(precio__gte=50).order_by('precio')
     """
     def __str__(self):
-        return 'El nombre del articulo es %s la seccion es %s y el precio es %s' %(self.nombre, self.seccion, self.precio)
+        return self.nombre
     
 
 class Pedidos(models.Model):
